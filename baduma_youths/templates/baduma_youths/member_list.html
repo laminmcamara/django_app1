@@ -1,0 +1,15 @@
+{% extends "baduma_youths/base.html" %}
+{% load static cms_tags %}
+
+{% block title %}Member List{% endblock %}
+
+{% block content %}
+    {% placeholder "member_list_content" or %}
+        <!-- Fallback to your original member list if CMS placeholder is empty -->
+        <h1 class="text-center mb-4">Member List</h1>
+        <div class="text-center mb-3">
+            <a href="{% url 'member_create' %}" class="btn btn-success">Add New Member</a>
+        </div>
+        <!-- Keep your existing table structure -->
+    {% endplaceholder %}
+{% endblock %}

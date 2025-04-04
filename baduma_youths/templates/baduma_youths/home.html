@@ -1,0 +1,16 @@
+{% extends 'baduma_youths/base.html' %}
+{% load cms_tags %}
+
+{% block title %}Home - Baduma Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% placeholder "home_content" or %}
+        <!-- Default content if no CMS placeholder is filled -->
+        <h2>We Strive to Uplift our Society.</h2>
+        <div class="text-center mb-3">
+            <a href="{% url 'admin:index' %}" class="btn btn-primary">Go to Admin</a>
+        </div>
+    {% endplaceholder %}
+</div>
+{% endblock %}

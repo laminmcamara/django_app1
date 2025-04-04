@@ -1,0 +1,50 @@
+{% load static cms_tags menu_tags sekizai_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Baduma Project{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    {% render_block "css" %}  <!-- Required for CMS plugins -->
+    <style>
+        /* Your existing styles here */
+    </style>
+</head>
+<body class="{{ request.template }}">
+    {% cms_toolbar %}  <!-- CMS Toolbar for admins -->
+    <header class="text-center">
+        <h1>Welcome to Baduma VDC App!</h1>
+        <nav>
+            <ul class="nav justify-content-center">
+                {% show_menu 0 100 100 100 "cms/menu/bootstrap4.html" %}  <!-- CMS Dynamic Menu -->
+                <li class="nav-item"><a class="nav-link" href="{% url 'search_results' %}">Search</a></li>
+                <li><a href="{% url 'baduma_youths:member_list' %}">Members</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contribution_list' %}">Contributions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+            {% placeholder "content" %}  <!-- CMS Placeholder for page content -->
+        {% endblock %}
+    </main>
+
+    <footer class="text-center">
+        <p>&copy; 2025 Baduma Project</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% render_block "js" %}  <!-- Required for CMS plugins -->
+</body>
+</html>

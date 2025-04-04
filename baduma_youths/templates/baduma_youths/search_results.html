@@ -1,0 +1,17 @@
+{% extends 'baduma_youths/base.html' %}
+{% load cms_tags %}
+
+{% block title %}Search Results - Baduma Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Results</h2>
+    <div class="search-container">
+        <form method="GET" action="{% url 'search_results' %}">
+            <input type="text" name="query" class="form-control" placeholder="Search...">
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </form>
+    </div>
+    {% placeholder "search_content" %}  <!-- CMS Placeholder for search results -->
+</div>
+{% endblock %}

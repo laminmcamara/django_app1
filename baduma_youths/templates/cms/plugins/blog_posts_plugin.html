@@ -1,0 +1,12 @@
+# baduma_youths/templates/cms/plugins/blog_posts_plugin.html
+<div class="blog-plugin">
+    <h3>{% if instance.title %}{{ instance.title }}{% else %}Latest Posts{% endif %}</h3>
+    <div class="posts-list">
+        {% for post in posts %}
+        <div class="post-item">
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.excerpt }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
