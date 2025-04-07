@@ -38,7 +38,7 @@ class Contribution(models.Model):
         on_delete=models.CASCADE,
         related_name='contributions'
     )
-    title = models.CharField(max_length=200, default='cash')
+    contribution_type = models.CharField(max_length=200, default='cash')
     amount = models.DecimalField(
         max_digits=10, 
         decimal_places=2,
@@ -49,7 +49,7 @@ class Contribution(models.Model):
     verified = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.title} - {self.amount}"
+        return f"{self.contribution_type} - {self.amount}"
 
 # CMS Content Model
 class CMSContent(models.Model):
@@ -64,7 +64,7 @@ class CMSContent(models.Model):
     )  # Amount field for additional information
     date = models.DateField(auto_now_add=True)  # Date field for ordering
 
-    class Meta:
+    class Meta: 
         ordering = ['-date']
 
     def __str__(self):
@@ -83,11 +83,32 @@ class Event(models.Model):
 class Member(models.Model):
     id = models.AutoField(primary_key=True)  # Default primary key
     new_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    first_name = models.CharField(max_length=255)  # New field for first name
-    last_name = models.CharField(max_length=255)   # New field for last name
-    email = models.EmailField(max_length=254, unique=True)          # Email field
-    phone_number = models.CharField(max_length=20, blank=True, null=True)  # Phone number field
-    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True)  # Gender field
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, default='your_first_name')  # New field for first name
+    last_name = models.CharField(max_length=255, default='your_last_name')   # New field for last name
+    email = models.EmailField(max_length=254, unique=True, default='example@email.com')  # Email field
+    phone_number = models.CharField(max_length=20, blank=True, null=True, default='000  00 00 000')  # Phone number field
+    gender = models.CharField(max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')], blank=True, default='male')  # Gender field
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    career = models.CharField(max_length=100, null=True, blank=True, default='civil servant')
+    educational_background = models.TextField(null=True, blank=True, default='High school')
+    age = models.PositiveIntegerField(null=True, blank=True, default='18')
+    marital_status = models.CharField(max_length=10, choices=[('single', 'Single'), ('married', 'Married')], null=True, blank=True, default='single')
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"  # Update representation
+        return f"{self.first_name} {self.last_name}"
+
+# Projects Model
+class Projects(models.Model):
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField()
+    media = models.FileField(upload_to='media/')
+    status = models.CharField(max_length=50, choices=[('active', 'Active'), ('inactive', 'Inactive')])
+
+    def __str__(self):
+        return self.name
+
+    # Custom method to display additional information
+    def short_description(self):
+        return self.description[:50]  # Returns the first 50 characters

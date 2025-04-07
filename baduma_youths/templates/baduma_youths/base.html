@@ -1,3 +1,4 @@
+{% extends 'baduma_youths/fullwidth.html' %}
 {% load static cms_tags menu_tags sekizai_tags %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,19 @@
     
     {% render_block "css" %}  <!-- Required for CMS plugins -->
     <style>
-        /* Your existing styles here */
+        /* Custom styles */
+        .container {
+            max-width: 1200px; /* Set a maximum width */
+            margin: 0 auto;    /* Center the container */
+            padding: 20px;     /* Add some padding */
+        }
+        header, footer {
+            background-color: #f8f9fa; /* Light background for contrast */
+            padding: 20px 0;            /* Vertical padding */
+        }
+        h1 {
+            margin-bottom: 20px; /* Space below the heading */
+        }
     </style>
 </head>
 <body class="{{ request.template }}">
@@ -21,12 +34,13 @@
         <h1>Welcome to Baduma VDC App!</h1>
         <nav>
             <ul class="nav justify-content-center">
-                {% show_menu 0 100 100 100 "cms/menu/bootstrap4.html" %}  <!-- CMS Dynamic Menu -->
-                <li class="nav-item"><a class="nav-link" href="{% url 'search_results' %}">Search</a></li>
-                <li><a href="{% url 'baduma_youths:member_list' %}">Members</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contribution_list' %}">Contributions</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:pages-root' %}">Home</a></li>
+                {% show_menu 0 100 100 100 "cms/menu/bootstrap4.html" %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:search_results' %}">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:member_list' %}">Members</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:contribution_list' %}">Contributions</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'baduma_youths:register' %}">Register</a></li>
             </ul>
         </nav>
     </header>

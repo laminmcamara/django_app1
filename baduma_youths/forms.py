@@ -10,12 +10,13 @@ class MemberForm(forms.ModelForm):
         model = Member
         fields = [
             'first_name', 'last_name', 'email', 
-            'phone_number', 'current_address', 'position',
-            'age', 'marital_status', 'education', 'gender'
+            'phone_number', 'profile_picture', 'career',
+            'educational_background', 'age', 'marital_status', 'gender'
         ]
         widgets = {
-            'join_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'current_address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'educational_background': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
@@ -26,7 +27,7 @@ class MemberForm(forms.ModelForm):
 class ContributionForm(forms.ModelForm):
     class Meta:
         model = Contribution
-        fields = ['title', 'amount', 'description']
+        fields = ['member', 'contribution_type', 'amount', 'description']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
@@ -47,13 +48,13 @@ class CMSRegistrationForm(UserCreationForm):
         widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     gender = forms.ChoiceField(
-        choices=Member.GENDER_CHOICES,
+        choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')],
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'phone_number', 'gender')
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
