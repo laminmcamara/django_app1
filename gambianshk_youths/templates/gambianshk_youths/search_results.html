@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block title %}Search Results - Gambianshk Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Search Results for "{{ query }}"</h2>
+
+    <div class="search-container mb-3">
+        <form method="GET" action="{% url 'search_view' %}">
+            <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ query }}">
+            <button type="submit" class="btn btn-primary mt-2">Search</button>
+        </form>
+    </div>
+
+    <h3>Members</h3>
+    {% if members %}
+        <ul>
+            {% for member in members %}
+                <li>{{ member.first_name }} {{ member.last_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No members found.</p>
+    {% endif %}
+
+    <h3>Contributions</h3>
+    {% if contributions %}
+        <ul>
+            {% for contribution in contributions %}
+                <li>{{ contribution.description }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No contributions found.</p>
+    {% endif %}
+</div>
+{% endblock %}

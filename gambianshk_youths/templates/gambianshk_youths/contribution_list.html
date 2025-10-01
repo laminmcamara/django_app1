@@ -1,0 +1,82 @@
+{% extends "gambianshk_youths/base.html" %}
+{% load cms_tags %}
+
+{% block content %}
+    <div class="contribution-page">
+        <h1>{% placeholder "contribution_title" %}</h1>
+        <div class="contribution-introduction">
+            {% placeholder "contribution_introduction" %}
+        </div>
+
+        {% if request.user.is_staff %}
+            {# Admin View: Show all contributions #}
+            <div class="contribution-list">
+                <h2>All Contributions (Admin View)</h2>
+                <ul>
+                    {% for contribution in contributions %}
+                        <li class="contribution-item">
+                            <a href="#contribution-{{ contribution.id }}">{{ contribution.title }}</a> - {% if contribution.published %}Published{% else %}Draft{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="contribution-details">
+                {% for contribution in contributions %}
+                    <div id="contribution-{{ contribution.id }}" class="contribution-detail">
+                        <h3>{{ contribution.title }}</h3>
+                        <div class="contribution-description">
+                            {% placeholder "contribution_description_"|add:contribution.id %}
+                        </div>
+                        <div class="contribution-content">
+                            {% placeholder "contribution_content_"|add:contribution.id %}
+                        </div>
+                        <p>Author: {{ contribution.author }}</p>
+                        <p>Date: {{ contribution.date_created }}</p>
+                        <p>Published: {{ contribution.published }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            {# Public View: Show only published contributions #}
+            <div class="contribution-list">
+                <h2>Published Contributions</h2>
+                <ul>
+                    {% for contribution in contributions %}
+                        {% if contribution.published %}
+                            <li class="contribution-item">
+                                <a href="#contribution-{{ contribution.id }}">{{ contribution.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="contribution-details">
+                {% for contribution in contributions %}
+                    {% if contribution.published %}
+                        <div id="contribution-{{ contribution.id }}" class="contribution-detail">
+                            <h3>{{ contribution.title }}</h3>
+                            <div class="contribution-description">
+                                {% placeholder "contribution_description_"|add:contribution.id %}
+                            </div>
+                            <div class="contribution-content">
+                                {% placeholder "contribution_content_"|add:contribution.id %}
+                            </div>
+                            <p>Author: {{ contribution.author }}</p>
+                            <p>Date: {{ contribution.date_created }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="contribution-footer">
+            {% placeholder "contribution_footer" %}
+        </div>
+        {% if page and (request.user.is_staff or perms.cms.change_page) %}
+        <a href="{% url 'admin:cms_page_change' page.pk %}">Edit this page</a>
+        {% endif %}
+    </div>
+{% endblock %}

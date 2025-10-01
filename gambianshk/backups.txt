@@ -1,0 +1,80 @@
+from django.contrib import admin
+from .models import Community, Member, Contribution, Event, Project, Constitution, Attendance
+
+@admin.register(Community)
+class CommunityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ('name',)
+
+@admin.register(Member)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'phone_number', 'gender')
+    search_fields = ('first_name', 'last_name', 'email')
+    ordering = ('last_name', 'first_name')
+
+    def full_name(self, obj):
+        return f"{obj.first_name or ''} {obj.last_name or ''}".strip()
+    full_name.short_description = 'Name'
+
+@admin.register(Contribution)
+class ContributionAdmin(admin.ModelAdmin):
+    list_display = ('member', 'contribution_type', 'amount')  # removed date, verified, published
+    search_fields = ('member__first_name', 'member__last_name', 'contribution_type')
+    list_filter = ('contribution_type',)  # removed date, verified, published
+    ordering = ('member',)  # changed from '-date'
+    actions = ['mark_verified', 'mark_published']
+
+    def mark_verified(self, request, queryset):
+        # Only do this if your model has the field verified
+        queryset.update(verified=True)
+    mark_verified.short_description = "Mark selected contributions as verified"
+
+    def mark_published(self, request, queryset):
+        # Only do this if your model has the field published
+        queryset.update(published=True)
+    mark_published.short_description = "Publish selected contributions"
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'date')  # removed 'community'
+    search_fields = ('title',)
+    list_filter = ('date',)  # removed 'community'
+    ordering = ('-date',)
+    date_hierarchy = 'date'
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')  # removed 'status'
+    search_fields = ('name', 'description')
+    list_filter = ()  # removed 'status'
+    ordering = ('name',)  # changed from '-created_at'
+    
+@admin.register(Constitution)
+class ConstitutionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'effective_date')  # removed last_updated
+    search_fields = ('title', 'content')
+    list_filter = ('effective_date',)
+    ordering = ('-effective_date',)
+    date_hierarchy = 'effective_date'  # keep if field exists
+
+@admin.register(Attendance)
+class AttendanceAdmin(admin.ModelAdmin):
+    list_display = ('meeting', 'member', 'attended')
+    search_fields = ('meeting__title', 'member__first_name', 'member__last_name')
+    list_filter = ('attended',)
+    ordering = ('meeting', 'member')
+
+admin.site.site_header = "Baduma Youths Administration"
+admin.site.site_title = "Baduma Youths Admin Portal"
+admin.site.index_title = "Welcome to Baduma Youths Admin"
+
+
+del /F db.sqlite3
+
+<div class="content-wrapper">
+    <h2 class="section-title">Upcoming Events</h2>
+    <p>
+        For all events and details, visit our <a href="{% page_url 'events' %}" class="link-primary">Events page</a>.
+    </p>
+    {% placeholder "events_teaser" %}
+</div>

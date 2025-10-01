@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags static %}
+
+{% block title %}Our Members{% endblock title %}
+
+{% block extra_css %}
+{% addtoblock "css" %}
+<style>
+   /* General Page Layout */
+.members-container {
+    padding: 2rem;
+    background-color: #fff;
+    margin: 2rem auto;
+    max-width: 1200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    box-sizing: border-box; /* Ensure padding is included in total width/height */
+}
+
+/* Page Header */
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #343a40;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.page-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Main Members Grid */
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem; /* Adjust gap to prevent overlap */
+    margin-bottom: 3rem;
+}
+
+.member-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    text-align: center;
+    padding: 2rem 1rem;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box; /* Include padding and border in total size */
+}
+
+.member-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.member-photo {
+    width: 120px;  /* Fixed width */
+    height: 120px; /* Fixed height */
+    border-radius: 50%; /* Circular shape */
+    background-color: #ccc; /* Placeholder color */
+    margin: 0 auto 1rem;
+    border: 4px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden; /* Ensures image stays within the circle */
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+}
+
+.member-photo img {
+    width: 100%; /* Full width of container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 100%; /* Limit height to container */
+    object-fit: cover;
+    border-radius: 10px; /* Scale the image nicely */
+}
+
+.member-card h3 {
+    font-size: 1.4rem;
+    color: #343a40;
+    margin-bottom: 0.25rem;
+}
+
+.member-card .role {
+    font-size: 1rem;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* In Memory / Honorary Section */
+.honorary-section {
+    padding: 3rem 2rem;
+    margin: 3rem -2rem -2rem -2rem; /* Extends to container edges */
+    background-color: #e9ecef;
+    border-top: 1px solid #dee2e6;
+}
+
+.honorary-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #495057;
+    margin-bottom: 2rem;
+}
+
+.honorary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; /* Adjust gap to prevent overlap */
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.honorary-card {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.honorary-card .member-photo {
+    width: 100px; /* Fixed width for honorary members */
+    height: 100px;
+    border-radius: 10px; /* Fixed height for honorary members */
+}
+
+/* Join Call to Action Section */
+.join-section {
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-top: 3rem;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.join-section h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.join-section p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+    opacity: 0.9;
+}
+
+.join-section a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #fff;
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+.join-section a:hover {
+    background-color: #f8f9fa;
+    transform: scale(1.05);
+}
+
+</style>
+{% endaddtoblock %}
+{% endblock extra_css %}
+
+{% block content %}
+<div class="members-container">
+    
+    {% placeholder "page_title" or %}
+        <h1 class="page-title">Meet Our Prominent Members</h1>
+        <p class="page-intro">
+            Our association is proud of its dedicated members, whose service and sacrifice have shaped our community. We honor their contributions.
+        </p>
+    {% endplaceholder %}
+
+    <div class="members-grid">
+        {% placeholder "prominent_members" or %}
+            <div class="member-card">
+                <div class="member-photo">
+                    <img src="{% static 'images/president1.jpg' %}" alt="Photo of Kebba Jallow">
+                </div>
+                <h3>Kebba Jallow</h3>
+                <p class="role">1st President</p>
+            </div>
+            <div class="member-card">
+                <div class="member-photo">
+                    <img src="{% static 'images/president2.jpg' %}" alt="Photo of Lamin Jorbateh">
+                </div>
+                <h3>Lamin Jorbateh</h3>
+                <p class="role">2nd President</p>
+            </div>
+            <div class="member-card">
+                <div class="member-photo">
+                    <img src="{% static 'images/president3.jpg' %}" alt="Photo of Muhammed Sidibeh">
+                </div>
+                <h3>Muhammed Sidibeh</h3>
+                <p class="role">3rd President</p>
+            </div>
+            
+        {% endplaceholder %}
+    </div>
+
+    {% placeholder "honorary_title" or %}
+        <p class="page-intro">
+            We also recognize our esteemed Honorary Members for their exceptional support.
+        </p>
+    {% endplaceholder %}
+    
+    <div class="members-grid">
+        {% placeholder "honorary_members" or %}
+            <div class="member-card">
+                <div class="member-photo"></div>
+                <h3>Tijan Chongan</h3>
+                <p class="role">Patron</p>
+            </div>
+            <div class="member-card">
+                <div class="member-photo"></div>
+                <h3>Sheriff Taal</h3>
+                <p class="role">Patron</p>
+            </div>
+        {% endplaceholder %}
+    </div>
+
+    <div class="honorary-section">
+        <h2 class="honorary-title">In Loving Memory</h2>
+        <div class="honorary-grid">
+            {% placeholder "in_memory_members" or %}
+                <div class="honorary-card">
+                    <div class="member-photo"></div>
+                    <h3>Abdou Jobe</h3>
+                    <p>Rest in Peace</p>
+                </div>
+                <div class="honorary-card">
+                    <div class="member-photo"></div>
+                    <h3>Amadou Juldeh</h3>
+                    <p>Rest in Peace</p>
+                </div>
+                <!-- **** UPDATED: Two more cards added below **** -->
+                <div class="honorary-card">
+                    <div class="member-photo"></div>
+                    <h3>Buba Joof</h3>
+                    <p>Rest in Peace</p>
+                </div>
+                <div class="honorary-card">
+                    <div class="member-photo"></div>
+                    <h3>Bamas</h3>
+                    <p>Rest in Peace</p>
+                </div>
+            {% endplaceholder %}
+        </div>
+    </div>
+
+    <div class="join-section">
+        {% placeholder "join_call_to_action" or %}
+            <h2>Become a Member</h2>
+            <p>Join our community to connect with fellow Gambians, access our services, and participate in our events.</p>
+            <a href="{% url 'gambianshk_youths:register' %}">Register Now</a>
+        {% endplaceholder %}
+    </div>
+</div>
+{% endblock content %}

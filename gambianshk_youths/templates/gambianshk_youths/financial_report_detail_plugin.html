@@ -1,0 +1,37 @@
+{% load static %}
+{% load i18n %}
+
+<div class="financial-report-detail-plugin">
+    <h2>{% blocktrans %}Financial Report Detail{% endblocktrans %}</h2>
+
+    <div class="report-info">
+        <h3>{{ instance.budget.year }}</h3>
+        <p><strong>{% trans "Generated On:" %}</strong> {{ instance.generated_on|date:"SHORT_DATE_FORMAT" }}</p>
+        <div class="summary">
+            <strong>{% trans "Summary:" %}</strong>
+            <p>{{ instance.summary|safe }}</p>
+        </div>
+
+        {% if instance.report_file %}
+            <p><strong>{% trans "Report File:" %}</strong> <a href="{{ instance.report_file.url }}" target="_blank">{% trans "Download Report" %}</a></p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .financial-report-detail-plugin {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .report-info {
+        margin-top: 10px;
+    }
+    .report-info h3 {
+        color: #007BFF;
+    }
+    .summary {
+        margin-top: 10px;
+    }
+</style>

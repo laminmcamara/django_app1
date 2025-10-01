@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %} {# Needed for add_class filter #}
+
+{% block title %}Login - Gambianshk Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Login</h2>
+    <form method="POST" novalidate>
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email|add_class:"form-control" }}
+            {% for error in form.email.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">Password:</label>
+            {{ form.password|add_class:"form-control" }}
+            {% for error in form.password.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+{% endblock %}

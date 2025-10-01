@@ -1,0 +1,35 @@
+{% load static %}
+{% load i18n %}
+
+<div class="expense-detail-plugin">
+    <h2>{% blocktrans %}Expense Detail{% endblocktrans %}</h2>
+
+    <div class="expense-info">
+        <h3>{{ instance.category }}</h3>
+        <p><strong>{% trans "Description:" %}</strong> {{ instance.description|safe }}</p>
+        <p><strong>{% trans "Amount:" %}</strong> {{ instance.amount }} {{ instance.date|date:"SHORT_DATE_FORMAT" }}</p>
+        <p><strong>{% trans "Incurred By:" %}</strong> {{ instance.incurred_by }}</p>
+        <p><strong>{% trans "Approved:" %}</strong> {{ instance.approved|yesno:"Yes,No" }}</p>
+
+        {% if instance.receipt %}
+            <p><strong>{% trans "Receipt:" %}</strong> <a href="{{ instance.receipt.url }}" target="_blank">{% trans "View Receipt" %}</a></p>
+        {% endif %}
+
+        <p><strong>{% trans "Notes:" %}</strong> {{ instance.notes|safe }}</p>
+    </div>
+</div>
+
+<style>
+    .expense-detail-plugin {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .expense-info {
+        margin-top: 10px;
+    }
+    .expense-info h3 {
+        color: #007BFF;
+    }
+</style>

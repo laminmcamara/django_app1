@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+<div class="community-plugin">
+    <h2>{{ community.name }}</h2>
+    {% if community.website %}
+    <p>Website: <a href="{{ community.website }}">{{ community.website }}</a></p>
+    {% endif %}
+    {% if community.contact_email %}
+    <p>Contact: {{ community.contact_email }}</p>
+    {% endif %}
+    <p>{{ community.description }}</p>
+
+    <h3>Upcoming Events</h3>
+    <ul>
+        {% for event in events %}
+            <li>
+                <a href="{{ event.get_absolute_url }}">{{ event.title }}</a> - {{ event.date|date:"F j, Y" }} {% if event.location %} at {{ event.location }}{% endif %}
+            </li>
+        {% empty %}
+            <li>No upcoming events.</li>
+        {% endfor %}
+    </ul>
+</div>

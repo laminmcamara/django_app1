@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% block content %}
+<div class="contribution-plugin">
+    <h3>Contribution: {{ contribution.contribution_type }}</h3>
+    <p>Amount: {{ contribution.amount }}</p>
+    <p>Date: {{ contribution.date }}</p>
+    <p>Description: {{ contribution.description }}</p>
+</div>
+{% endblock %}

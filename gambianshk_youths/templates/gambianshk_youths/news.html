@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags static %}
+
+{% block title %}News{% endblock title %}
+
+{% block extra_css %}
+<style>
+    /* Styles specific to the news page content */
+    .news-container {
+        padding: 1rem 2rem;
+        background-color: #fff; /* Assuming a white background for the content area */
+        margin: 2rem auto;
+        max-width: 1200px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .news-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .news-intro {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 2.5rem;
+    }
+
+    .news-category {
+        margin-bottom: 2.5rem;
+    }
+
+    .news-category h2 {
+        font-size: 1.8rem;
+        color: #0056b3;
+        margin-bottom: 1.2rem;
+        border-left: 4px solid #0056b3;
+        padding-left: 10px;
+    }
+
+    .news-sources {
+        list-style: none;
+        padding: 0;
+    }
+
+    .news-sources li {
+        background-color: #f8f9fa;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .news-sources li:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border-left: 4px solid #007bff;
+    }
+
+    .news-sources a {
+        display: block;
+        padding: 1rem 1.5rem;
+        text-decoration: none;
+        color: #343a40;
+        font-weight: 500; /* Using Bootstrap's font-weight convention */
+    }
+
+    .news-sources a:hover {
+        color: #0056b3;
+    }
+    
+    /* Responsive Design Adjustments */
+    @media (max-width: 768px) {
+        .news-container {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+        .news-title {
+            font-size: 2rem;
+        }
+        .news-category h2 {
+            font-size: 1.5rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .news-container {
+            padding: 1rem;
+        }
+        .news-sources a {
+            padding: 0.8rem 1rem;
+        }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="news-container">
+        <h1 class="news-title">Latest News</h1>
+        <p class="news-intro">For more news, check out these sources:</p>
+
+        <div class="news-category">
+            <h2>The Gambia</h2>
+            <ul class="news-sources">
+                <li><a href="https://thepoint.gm/" target="_blank">The Point Newspaper</a></li>
+                <li><a href="https://www.facebook.com/Kerrfatou/" target="_blank">Kerr Fatou</a></li>
+                <li><a href="https://www.facebook.com/fatunetwork/" target="_blank">The Fatou Network</a></li>
+                <li><a href="https://foroyaa.net/" target="_blank">Foroyaa Newspaper</a></li>
+                <li><a href="https://www.whatson-gambia.com" target="_blank">What's On Gambia</a></li>
+                <li><a href="https://freedomnewspaper.gm/" target="_blank">Freedom Newspaper</a></li>
+                <li><a href="https://www.gambiadailypress.com/" target="_blank">Gambia Daily Press</a></li>
+                <li><a href="https://www.facebook.com/share/v/1ATcLEyrLL/" target="_blank">360pluz</a></li>
+                <li><a href="https://www.accuweather.com/en/gm/banjul/167395/weather-forecast/167395" target="_blank">Weather Report (Banjul) - AccuWeather</a></li>
+                <li><a href="https://www.timeanddate.com/weather/gambia/banjul" target="_blank">Weather Report (Banjul) - Time and Date</a></li>
+            </ul>
+        </div>
+
+        <div class="news-category">
+            <h2>Hong Kong</h2>
+            <ul class="news-sources">
+                <li><a href="https://www.scmp.com" target="_blank">South China Morning Post (SCMP)</a></li>
+                <li><a href="https://www.thestandard.com.hk/" target="_blank">The Standard</a></li>
+                <li><a href="https://hongkongfp.com/" target="_blank">Hong Kong Free Press (HKFP)</a></li>
+                <li><a href="http://paper.hkheadline.com/" target="_blank">Headline Daily (頭條日報)</a></li>
+                <li><a href="https://www.hket.com/" target="_blank">Hong Kong Economic Times (香港經濟日報)</a></li>
+                <li><a href="https://www.orientaldaily.com.my/" target="_blank">Oriental Daily News (東方日報)</a></li>
+                <li><a href="https://www.accuweather.com/en/hk/hong-kong/1123655/weather-forecast/1123655" target="_blank">Weather Report (Hong Kong) - AccuWeather</a></li>
+                <li><a href="https://www.timeanddate.com/weather/hong-kong/hong-kong" target="_blank">Weather Report (Hong Kong) - Time and Date</a></li>
+            </ul>
+        </div>
+
+        <div class="news-category">
+            <h2>International News</h2>
+            <ul class="news-sources">
+                <li><a href="https://www.reuters.com" target="_blank">Reuters</a></li>
+                <li><a href="https://www.apnews.com" target="_blank">Associated Press (AP)</a></li>
+                <li><a href="https://www.afp.com/en" target="_blank">Agence France-Presse (AFP)</a></li>
+                <li><a href="https://www.cnn.com" target="_blank">CNN</a></li>
+                <li><a href="https://www.bbc.com/news" target="_blank">BBC News</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

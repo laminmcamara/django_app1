@@ -1,0 +1,13 @@
+{% comment %} baduma_youths/templates/baduma_youths/plugins/event_detail.html {% endcomment %}
+
+{% if event %}
+  <div class="event-detail-plugin">
+    <h2>{{ event.title }}</h2>
+    <p class="event-date"><strong>Date:</strong> {{ event.date|date:"F j, Y, P" }}</p>
+    <div class="event-description">
+      {{ event.description|linebreaksbr }}
+    </div>
+  </div>
+{% else %}
+  <p><em>Please select an event in the plugin settings.</em></p>
+{% endif %}

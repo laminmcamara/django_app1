@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags static %}
+
+{% block title %}The Gambians Based in Hong Kong{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="content-wrapper text-center">
+        <h1 class="hero__title">Welcome to Our Community</h1>
+        <p class="hero__description">We are Gambians living in Hong Kong.</p>
+        {% placeholder "hero_action" %}
+    </div>
+
+    <div class="hero__image-container">
+        <img src="{% static 'gambianshk_youths/images/image.png' %}" class="bigflag" alt="Gambian flag">
+    </div> 
+</section>
+
+<div class="content-wrapper">
+    <h2 class="section-title">Latest Updates</h2>
+    <p>Stay tuned for upcoming events and community contributions!</p>
+    {% placeholder "latest_updates" %}
+</div>
+
+<div class="content-wrapper">
+    <div class="card--about">
+        <h2 class="section-title">About Us</h2>
+        <p>A vibrant and welcoming home away from home for Gambians living and working in this dynamic city of Hong Kong.</p>
+
+        <h3>Our Mission</h3>
+        <p>We are committed to <strong>building unity, fostering strength, and empowering</strong> every member of our community. Through cultural celebration, mutual support, and shared experiences, we strive to:</p>
+        <ul>
+            <li><strong>Connect Gambians</strong> across all generations and backgrounds in Hong Kong.</li>
+            <li><strong>Preserve and promote Gambian culture, traditions, and values</strong> through engaging events and educational programs.</li>
+            <li><strong>Provide practical support and resources</strong> to help our members thrive socially, professionally, and personally.</li>
+            <li><strong>Advocate for the interests and welfare</strong> of Gambians living abroad.</li>
+        </ul>
+
+        <h3>What We Do</h3>
+        <p>Our community will organize a wide range of activities, including:</p>
+        <ul>
+            <li>Cultural festivals and national day celebrations that showcase the richness of Gambian heritage.</li>
+            <li>Workshops and seminars on topics such as career development, health awareness, and legal rights.</li>
+            <li>Social gatherings and networking events that build friendships and professional connections.</li>
+            <li>Support services for newcomers, students, and families adjusting to life in Hong Kong.</li>
+        </ul>
+        {% placeholder "about_content" %}
+    </div>
+</div>
+
+<div class="content-wrapper">
+    <h2 class="section-title">Get Involved</h2>
+    <p>Do you want to help shape the future? Volunteer with us, participate in our events, or support our projects. Together, we make a lasting impact.</p>
+    {% placeholder "get_involved" %}
+</div>
+
+<div class="content-wrapper">
+    <h2 class="section-title">Upcoming Events</h2>
+    {% placeholder "events_teaser" %}
+</div>
+
+<div class="content-wrapper">
+    <h2 class="section-title">Our Team</h2>
+    <p>Meet the passionate leaders and community members who drive our mission forward.</p>
+    <p class="term">Term of Office - Starts: 2025 & End: 2027</p>
+    <div class="profile-grid"> <!-- New div for grid layout -->
+    {% placeholder "team_profiles" %}
+</div>
+
+<div class="faq"><h1>Frequently Asked Questions</h1>
+    
+      <dt>How can I become a member?</dt>
+      <dd>You can register by clicking on the Register link and filling out the membership form or inform an admin.</dd>
+  
+      <dt>Who can participate in community events?</dt>
+      <dd>All registered members and their families are welcome to participate in our events, friends and other interested individuals are welcome with request from admin.</dd>
+  
+      <dt>How do I contribute to the community?</dt>
+      <dd>Contributions are managed by our admin team. Please contact us if you are interested in supporting our initiatives.</dd>
+  
+      <dt>What is the main purpose of this Gambian Migrant Community App?</dt>
+      <dd>The app is designed to connect Gambians living in Hong Kong, providing resources, support, and a platform for sharing experiences and information.</dd>
+  
+      <dt>Is the app free to use?</dt>
+      <dd>Yes, the app is completely free to download and use.</dd>
+  
+      <dt>How can I connect with other members of the community?</dt>
+      <dd>You can connect with other members through the community forum, chat features, or by attending community events listed in the app.</dd>
+  
+      <dt>How can I find out about community events?</dt>
+      <dd>You can find upcoming events in the "Events" section of the app or home page, contact admins for more details.</dd>
+  
+      <dt>What types of resources are available in the app?</dt>
+      <dd>The app includes resources on employment, housing, legal rights, health services, and cultural activities relevant to the Gambian community.</dd>
+  
+      <dt>Is my personal information safe?</dt>
+      <dd>Yes, we take your privacy seriously. All personal information is stored securely and is not shared with third parties without your consent.</dd>
+  
+      <dt>How can I provide feedback about the app?</dt>
+      <dd>We welcome your feedback! You can submit your comments or suggestions through the "Feedback" section in the app.</dd>
+  
+      <!-- Additional FAQs -->
+      <dt>What are the benefits of becoming a member?</dt>
+      <dd>Members gain access to exclusive events, resources, and a network of support from fellow Gambians in Hong Kong.</dd>
+  
+      <dt>Are there any membership fees?</dt>
+      <dd>No, membership is free for all Gambians residing in Hong Kong.</dd>
+  
+      <dt>Can I volunteer for community events?</dt>
+      <dd>Absolutely! We always welcome volunteers. Please reach out to us for more information on how to get involved.</dd>
+  
+      <dt>How do you address community issues?</dt>
+      <dd>We hold regular meetings to discuss community concerns and work collaboratively to find solutions. Members are encouraged to voice their opinions.</dd>
+  
+      <dt>Do you collaborate with other organizations?</dt>
+      <dd>Yes, we actively seek partnerships with other organizations to enhance our services and support for the community.</dd>
+  
+      <dt>What should I do if I have a complaint?</dt>
+      <dd>Please contact our admin team directly via the contact form, and we will address your concerns promptly.</dd>
+    </div>
+
+    <div></div>
+{% endblock %}

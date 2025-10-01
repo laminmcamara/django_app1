@@ -1,0 +1,16 @@
+<!-- gambianshk_youths/templates/gambianshk_youths/member_list.html -->
+
+{% extends 'gambianshk_youths/base.html' %}
+{% load cms_tags %}
+{% block title %}Member List{% endblock %}
+
+{% block content %}
+    <h2>Member List</h2>
+    <div class="member-list">
+        {% for member in members %}
+            {% include 'gambianshk_youths/member_plugin.html' with member=member %}
+        {% empty %}
+            <p>No members found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

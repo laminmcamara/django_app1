@@ -1,1 +1,41 @@
-django 
+# requirements.txt
+
+# CORE
+Django==5.2.6 # Adjusted to latest 5.2 LTS version
+django-cms==5.0.2 # Uses compatible Django 5.2+
+djangocms-admin-style==3.3.1
+django-sekizai==4.1.0
+django-treebeard==4.7.1
+asgiref==3.9.1 # Required by Django 5.2.6, specify explicitly to ensure correct version
+packaging==25.0 # Required by Django, specify explicitly
+sqlparse==0.5.3 # Required by Django
+tzdata==2025.2 # Required by Django
+Pillow==11.3.0 # Update to 11.3.0 for consistency
+
+# VERSIONING & ALIASES (Required for CMS v4+)
+djangocms-versioning==2.4.0
+djangocms-alias==2.0.5
+
+# FILER (for media management)
+django-filer==3.3.2
+easy-thumbnails==2.10.1
+djangocms-picture==4.1.1
+# Use djangocms-file-filer for CMS 5 compatibility with filer
+djangocms-file-filer==2.0.0 # Example version, check for latest release
+
+# STANDARD PLUGINS
+djangocms-text==0.9.3 # The core text plugin
+djangocms-text-ckeditor5==1.0.0 # CKEditor 5 for `djangocms-text`
+djangocms-video==4.0.0
+djangocms-googlemap==3.0.0
+djangocms-snippet==5.0.2
+djangocms-style==4.0.0
+djangocms-link==4.0.0
+
+# UTILITIES
+django-cors-headers==4.8.0
+django-environ==0.12.0
+djangorestframework==3.16.0
+psycopg2-binary==2.9.10 # For PostgreSQL, ensure this is installed
+# Other utility libraries like lxml and nh3 are dependencies of djangocms-text,
+# so they do not need to be specified unless you require a different version.

@@ -1,0 +1,43 @@
+<!-- gambianshk_youths/templates/gambianshk_youths/member.html -->
+
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block title %}Members{% endblock %}
+
+{% block content %}
+<div class="member-page">
+    <h1>{% placeholder "member_title" %}</h1>
+
+    <div class="member-introduction">
+        {% placeholder "member_introduction" %}
+    </div>
+
+    <div class="member-list">
+        <h2>Member List</h2>
+        <ul>
+            {% for member in members %}
+                <li class="member-item">
+                    <a href="#member-{{ member.id }}">{{ member.name }}</a>
+                </li>
+            {% empty %}
+                <li>No members found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="member-details">
+        {% for member in members %}
+            {% include 'gambianshk_youths/member_plugin.html' with member=member %}
+        {% endfor %}
+    </div>
+
+    <div class="member-footer">
+        {% placeholder "member_footer" %}
+    </div>
+
+    {% if request.user.is_staff or perms.cms.change_page %}
+        <a href="{% url 'admin:cms_page_change' page.pk %}">Edit this page</a>
+    {% endif %}
+</div>
+{% endblock %}

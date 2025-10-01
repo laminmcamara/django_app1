@@ -1,0 +1,30 @@
+<!-- gambianshk_youths/templates/gambianshk_youths/meeting_detail.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ meeting.title }}</h2>
+<p>Date: {{ meeting.date }}</p>
+<p>Agenda: {{ meeting.agenda }}</p>
+<p>Minutes: {{ meeting.minutes }}</p>
+
+<h3>Attendance</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Member</th>
+            <th>Attended</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for attendance in attendances %}
+        <tr>
+            <td>{{ attendance.member.first_name }} {{ attendance.member.last_name }}</td>
+            <td>{{ attendance.attended|yesno:"Yes,No" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'gambianshk_youths:mark_attendance' meeting.id %}" class="btn btn-secondary">Mark Attendance</a>
+{% endblock %}

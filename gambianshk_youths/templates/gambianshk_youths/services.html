@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags static %}
+
+{% block title %}Our Services{% endblock title %}
+
+{% block extra_css %}
+{# Add Font Awesome for better icons #}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    /* Define a color palette for easy theming */
+    :root {
+        --primary-color: #007bff;
+        --primary-hover-color: #0056b3;
+        --secondary-color: #6c757d;
+        --light-bg-color: #f8f9fa;
+        --white-color: #fff;
+        --dark-text-color: #343a40;
+        --light-text-color: #555;
+        --border-color: #dee2e6;
+        --shadow-color: rgba(0, 0, 0, 0.05);
+        --shadow-hover-color: rgba(0, 0, 0, 0.1);
+        --warning-color: #ffc107; /* Gold/Yellow for 'Coming Soon' */
+    }
+
+    .services-container {
+        padding: 2rem;
+        background-color: var(--white-color);
+        margin: 2rem auto;
+        max-width: 1200px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px var(--shadow-color);
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        position: relative;
+    }
+
+    /* Animated underline for the title */
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .page-title:hover::after {
+        width: 120px;
+    }
+
+    .page-intro {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--light-text-color);
+        margin-bottom: 3rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .service-card {
+        background: var(--light-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px var(--shadow-hover-color);
+    }
+
+    .service-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.5rem;
+        color: var(--dark-text-color);
+        margin-bottom: 1rem;
+    }
+
+    .service-card p {
+        color: var(--secondary-color);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+        flex-grow: 1; /* Makes sure cards in a row have buttons aligned at the bottom */
+    }
+    
+    .status-coming-soon {
+        color: var(--warning-color);
+        font-style: italic;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-learn-more {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        border-radius: 50px; /* Pill-shaped button */
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-learn-more:hover {
+        background-color: var(--primary-hover-color);
+        transform: scale(1.05);
+    }
+    
+    /* --- Reusable Modal Styles --- */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    
+    .modal.is-open {
+        display: flex; /* Use flexbox for easy centering */
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        padding: 2rem;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 8px;
+        position: relative;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+    }
+    
+    .modal.is-open .modal-content {
+        transform: scale(1);
+    }
+
+    .modal-close {
+        color: #aaa;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        background: none;
+    }
+
+    .modal-close:hover,
+    .modal-close:focus {
+        color: var(--dark-text-color);
+        text-decoration: none;
+    }
+    
+    .modal-content h2 {
+        margin-top: 0;
+        color: var(--dark-text-color);
+    }
+    
+    .modal-content ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="services-container">
+    <h1 class="page-title">What We Offer</h1>
+    <p class="page-intro">
+        The Gambian Association in Hong Kong is dedicated to supporting our community. We will provide a range of services to help members settle, connect, and thrive.
+    </p>
+
+    <div class="services-grid">
+        {% placeholder "services_list" or %}
+            <!-- Service Card 1: Visa & Consular -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-passport"></i></div>
+                <h3>Visa & Consular Assistance</h3>
+                <p>Guidance on visa applications, renewals, and other consular matters for Gambians residing in Hong Kong, with embassy representation in Mainland China.</p>
+                <button class="btn-learn-more" data-modal-target="#visaModal" aria-label="Learn More about Visa and Consular Assistance">Learn More</button>
+            </div>
+
+            <!-- Service Card 2: Cultural Integration -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-people-group"></i></div>
+                <h4 class="status-coming-soon">Coming Soon</h4>
+                <h3>Cultural Integration Support</h3>
+                <p>Programs and workshops to help newcomers adapt to life in Hong Kong while preserving our rich Gambian heritage.</p>
+                <button class="btn-learn-more" data-modal-target="#culturalModal" aria-label="Learn More about Cultural Integration Support">Learn More</button>
+            </div>
+
+            <!-- Service Card 3: Business & Career -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <h4 class="status-coming-soon">Coming Soon</h4>
+                <h3>Business & Career Networking</h3>
+                <p>Connect with professionals and entrepreneurs within the community through our networking events and forums.</p>
+                <button class="btn-learn-more" data-modal-target="#networkingModal" aria-label="Learn More about Business and Career Networking">Learn More</button>
+            </div>
+
+            <!-- Service Card 4: Emergency Support -->
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-kit-medical"></i></div>
+                <h4 class="status-coming-soon">Coming Soon</h4>
+                <h3>Emergency Support</h3>
+                <p>Providing a support system and resources for community members facing urgent or unforeseen difficulties.</p>
+                <button class="btn-learn-more" data-modal-target="#emergencyModal" aria-label="Learn More about Emergency Support">Learn More</button>
+            </div>
+        {% endplaceholder %}
+    </div>
+</div>
+
+<!-- ========= MODALS ========= -->
+<!-- All modals are now placed together, outside the grid, for cleaner HTML structure -->
+
+<!-- Modal 1: Visa -->
+<div id="visaModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="visaModalTitle">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h2 id="visaModalTitle">Visa & Consular Assistance</h2>
+        <p>Our Visa & Consular Assistance service provides comprehensive support for Gambians living in Hong Kong. Coming soon:</p>
+        <ul>
+            <li>Assistance with visa applications and Passport renewals.</li>
+            <li>Guidance on documentation and requirements.</li>
+            <li>Information on consular services and support from our embassy in Mainland China.</li>
+            <li>Help with emergency travel documents.</li>
+        </ul>
+        <p>For personalized assistance, please contact our embassy in Mainland China directly.</p>
+    </div>
+</div>
+
+<!-- Modal 2: Cultural -->
+<div id="culturalModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="culturalModalTitle">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h2 id="culturalModalTitle">Cultural Integration Support</h2>
+        <p>Our Cultural Integration Support program is designed to assist newcomers in adapting to life in Hong Kong while celebrating and preserving Gambian heritage. Coming soon:</p>
+        <ul>
+            <li>Workshops on cultural awareness and integration.</li>
+            <li>Partner with others for Chinese Language classes to improve communication skills.</li>
+            <li>Social events to foster community connections.</li>
+            <li>Support groups for sharing experiences and advice.</li>
+        </ul>
+        <p>Join us to build a bridge between cultures and enhance your experience in Hong Kong!</p>
+    </div>
+</div>
+
+<!-- Modal 3: Networking -->
+<div id="networkingModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="networkingModalTitle">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h2 id="networkingModalTitle">Business & Career Networking</h2>
+        <p>Our Business & Career Networking program is designed to foster connections among professionals and entrepreneurs. Coming soon:</p>
+        <ul>
+            <li>Regular networking events to meet industry leaders.</li>
+            <li>Workshops and seminars on career development.</li>
+            <li>Online forums for discussion and collaboration.</li>
+            <li>Access to mentorship opportunities with experienced professionals.</li>
+        </ul>
+        <p>Join us to expand your network and enhance your career opportunities!</p>
+    </div>
+</div>
+
+<!-- Modal 4: Emergency -->
+<div id="emergencyModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="emergencyModalTitle">
+    <div class="modal-content">
+        <button class="modal-close" aria-label="Close modal">&times;</button>
+        <h2 id="emergencyModalTitle">Emergency Support</h2>
+        <p>Our emergency support program offers immediate assistance to individuals and families in crisis. Coming soon:</p>
+        <ul>
+            <li>24/7 hotline for urgent inquiries.</li>
+            <li>Access to food, shelter, and medical assistance.</li>
+            <li>Guidance on navigating local resources and services.</li>
+            <li>Support groups and counseling services.</li>
+        </ul>
+        <p>For more information, please contact us or visit our website.</p>
+    </div>
+</div>
+
+<!-- =================================================================== -->
+<!-- SCRIPT FOR MODAL FUNCTIONALITY                                      -->
+<!-- Moved here from the 'addtoblock' to ensure it's always included.    -->
+<!-- =================================================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Reusable Modal Logic ---
+
+    const openModalButtons = document.querySelectorAll('[data-modal-target]');
+    const closeModalButtons = document.querySelectorAll('.modal-close');
+    let previouslyFocusedElement;
+
+    // Function to open a modal
+    const openModal = (modal) => {
+        if (!modal) return;
+        previouslyFocusedElement = document.activeElement; // Save what was focused before opening
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        // Focus the close button for accessibility
+        const focusableElement = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusableElement) {
+            focusableElement.focus();
+        }
+    };
+
+    // Function to close a modal
+    const closeModal = (modal) => {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        document.body.style.overflow = ''; // Restore background scrolling
+        if (previouslyFocusedElement) {
+            previouslyFocusedElement.focus(); // Return focus to the element that opened the modal
+        }
+    };
+
+    // Add click event to all "Learn More" buttons
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget);
+            openModal(modal);
+        });
+    });
+
+    // Add click event to all "Close" buttons inside modals
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal');
+            closeModal(modal);
+        });
+    });
+
+    // Add click event to close modal when clicking on the background overlay
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
+
+    // Add keyboard event to close modal with the "Escape" key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const openModal = document.querySelector('.modal.is-open');
+            if (openModal) {
+                closeModal(openModal);
+            }
+        }
+        
+        // Basic focus trapping
+        if (event.key === 'Tab') {
+            const openModal = document.querySelector('.modal.is-open');
+            if (!openModal) return;
+
+            const focusableElements = openModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (event.shiftKey) { // if shift + tab
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    event.preventDefault();
+                }
+            } else { // if tab
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    event.preventDefault();
+                }
+            }
+        }
+    });
+});
+</script>
+
+{% endblock content %}

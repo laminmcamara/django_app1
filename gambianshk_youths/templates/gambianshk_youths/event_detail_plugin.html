@@ -1,0 +1,41 @@
+{% load cms_tags %}
+{% load static %}
+
+<div class="event-detail-plugin">
+    <h2>{{ instance.event.title }}</h2>
+    <div class="event-description">
+        {{ instance.event.description|safe }}
+    </div>
+    <div class="event-dates">
+        <p>Start Date: {{ instance.event.start_date }}</p>
+        <p>End Date: {{ instance.event.end_date }}</p>
+    </div>
+    <div class="event-location">
+        <p>Location: {{ instance.event.location }}</p>
+    </div>
+
+    {% if instance.event.image %}
+        <img src="{{ instance.event.image.url }}" alt="{{ instance.event.title }}">
+    {% endif %}
+
+    {# Video display #}
+    {% if instance.video_file %}
+        <h3>Event Video</h3>
+        <video controls>
+            <source src="{{ instance.video_file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+
+    {# Audio display #}
+    {% if instance.audio_file %}
+        <h3>Event Audio</h3>
+        <audio controls>
+            <source src="{{ instance.audio_file.url }}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    {% endif %}
+
+    {# Include additional details from another template if needed #}
+    {% include "gambianshk_youths/plugins/event_detail.html" %}
+</div>

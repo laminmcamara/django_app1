@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Register - Gambianshk{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Register</h2>
+    <form method="POST" action="{% url 'gambianshk_youths:register' %}" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+            {{ form.first_name|add_class:"form-control" }}
+            {% for error in form.first_name.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+            {{ form.last_name|add_class:"form-control" }}
+            {% for error in form.last_name.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username|add_class:"form-control" }}
+            {% for error in form.username.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email|add_class:"form-control" }}
+            {% for error in form.email.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.phone_number.id_for_label }}">Phone Number:</label>
+            {{ form.phone_number|add_class:"form-control" }}
+            {% for error in form.phone_number.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1|add_class:"form-control" }}
+            {% for error in form.password1.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+            {{ form.password2|add_class:"form-control" }}
+            {% for error in form.password2.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.gender.id_for_label }}">Gender:</label>
+            {{ form.gender|add_class:"form-control" }}
+            {% for error in form.gender.errors %}
+                <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+{% endblock %}

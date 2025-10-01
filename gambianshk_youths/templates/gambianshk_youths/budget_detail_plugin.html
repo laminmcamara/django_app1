@@ -1,0 +1,38 @@
+{% load static %}
+{% load i18n %}
+
+<div class="budget-detail-plugin">
+    <h2>{% blocktrans %}Budget Detail{% endblocktrans %}</h2>
+
+    <div class="budget-info">
+        <h3>{{ instance.year }}</h3>
+        <p><strong>{% trans "Total Income:" %}</strong> {{ instance.total_income }}</p>
+        <p><strong>{% trans "Total Expenses:" %}</strong> {{ instance.total_expenses }}</p>
+        <p><strong>{% trans "Balance:" %}</strong> {{ instance.balance }}</p>
+        <p><strong>{% trans "Created At:" %}</strong> {{ instance.created_at|date:"SHORT_DATE_FORMAT" }}</p>
+        <p><strong>{% trans "Updated At:" %}</strong> {{ instance.updated_at|date:"SHORT_DATE_FORMAT" }}</p>
+        
+        <div class="budget-notes">
+            <strong>{% trans "Notes:" %}</strong>
+            <p>{{ instance.notes|safe }}</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .budget-detail-plugin {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .budget-info {
+        margin-top: 10px;
+    }
+    .budget-info h3 {
+        color: #007BFF;
+    }
+    .budget-notes {
+        margin-top: 10px;
+    }
+</style>

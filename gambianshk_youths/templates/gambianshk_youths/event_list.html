@@ -1,0 +1,325 @@
+{% extends "base.html" %}
+
+{% load cms_tags %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Events</title>
+    <style>
+        /* --- Google Fonts & Basic Styles --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #333;
+            --heading-color: #222;
+            --border-radius: 8px;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header --- */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #0056b3);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: white;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* --- Section Styling --- */
+        .events-section {
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- Featured Event --- */
+        .featured-event {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 992px) {
+            .featured-event {
+                flex-direction: row;
+            }
+        }
+
+        .featured-event-image {
+            flex-basis: 50%;
+        }
+
+        .featured-event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .featured-event-content {
+            flex-basis: 50%;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-event-content .event-date {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .featured-event-content h2 {
+            font-size: 2.2rem;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .featured-event-content .event-location {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .featured-event-content .event-description {
+            margin-bottom: 2rem;
+        }
+
+        /* --- Event Grid --- */
+        .event-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .event-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .event-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* --- Event Card --- */
+        .event-card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .event-card-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .event-card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card-content h3 {
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .event-card-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+        
+        .event-card-location {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .event-card-description {
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- CTA Button --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .site-footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Our Events</h1>
+            <p>Join us for our upcoming workshops, conferences, and meetups.</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="events-section">
+            <h2 class="section-title">Featured Event</h2>
+            <div class="featured-event">
+                <div class="featured-event-image">
+                    {% placeholder "featured_event_image" %}
+                </div>
+                <div class="featured-event-content">
+                    <p class="event-date">
+                        {% placeholder "featured_event_date" %}
+                    </p>
+                    <h2>
+                        {% placeholder "featured_event_title" %}
+                    </h2>
+                    <p class="event-location">
+                        
+                        {% placeholder "featured_event_location" %}
+                    </p>
+                    <div class="event-description">
+                        {% placeholder "featured_event_description" %}
+                    </div>
+                    {% placeholder "featured_event_link" %}
+                </div>
+            </div>
+        </section>
+    
+        <section class="events-section">
+            <h2 class="section-title">Upcoming Events</h2>
+            {% placeholder "content" %}
+        </section>
+    
+    </main>
+
+    {% block footer %}
+    <footer class="site-footer">
+        {% if footer_content %}
+            {{ footer_content }}
+        {% else %}
+            <div class="container text-center">
+                <p>&copy; {% now "Y" %} Gambians based in HK. All rights reserved.</p>
+                <div>
+                    {% page_url 'privacy-policy' as policy_url %}
+                    {% page_url 'terms-and-conditions' as terms_url %}
+                    
+                    {% if policy_url %}
+                        <a href="{{ policy_url }}">Privacy Policy</a>
+                    {% endif %}
+                    
+                    {% if policy_url and terms_url %}
+                        <span>|</span>
+                    {% endif %}
+                    
+                    {% if terms_url %}
+                        <a href="{{ terms_url }}">Terms & Conditions</a>
+                    {% endif %}
+                </div>
+                <p>Follow us on <a href="#">Twitter</a> | <a href="#">Facebook</a></p>
+            </div>
+        {% endif %}
+    </footer>
+    {% endblock %}
+
+</body>
+</html>
+{% endblock %}

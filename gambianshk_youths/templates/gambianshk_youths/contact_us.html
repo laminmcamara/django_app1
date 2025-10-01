@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% load cms_tags sekizai_tags %}
+
+{% block title %}Contact Us{% endblock title %}
+
+{% block extra_css %}
+{% addtoblock "css" %}
+<style>
+    /* FontAwesome for icons (optional but recommended) */
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
+    .contact-page-container {
+        max-width: 1100px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-header h1 {
+        font-size: 2.8rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .contact-header p {
+        font-size: 1.1rem;
+        color: #6c757d;
+        max-width: 700px;
+        margin: 0.5rem auto 0;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 3rem;
+        align-items: flex-start;
+    }
+
+    /* Contact Info Section */
+    .contact-info h2 {
+        font-size: 1.8rem;
+        color: #007bff;
+        margin-bottom: 1.5rem;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+    }
+
+    .info-item .icon {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-right: 1rem;
+        width: 30px;
+        text-align: center;
+    }
+
+    .info-item .details h4 {
+        margin: 0 0 0.25rem 0;
+        font-size: 1.1rem;
+        color: #343a40;
+    }
+
+    .info-item .details p {
+        margin: 0;
+        color: #6c757d;
+        line-height: 1.6;
+    }
+    
+    .info-item .details a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    
+    .info-item .details a:hover {
+        text-decoration: underline;
+    }
+
+    /* Contact Form Section */
+    .contact-form h2 {
+        font-size: 1.8rem;
+        color: #007bff;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-placeholder-message {
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border: 1px dashed #ced4da;
+        border-radius: 5px;
+        text-align: center;
+        color: #6c757d;
+    }
+
+    /* Map Section */
+    .map-section {
+        margin-top: 4rem;
+        text-align: center;
+    }
+
+    .map-section h2 {
+        font-size: 1.8rem;
+        color: #343a40;
+        margin-bottom: 1.5rem;
+    }
+
+    .map-placeholder {
+        width: 100%;
+        height: 400px;
+        background-color: #e9ecef;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6c757d;
+        border: 1px solid #dee2e6;
+    }
+    
+    .map-placeholder iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 8px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endaddtoblock %}
+{% endblock extra_css %}
+
+{% block content %}
+<div class="contact-page-container">
+
+    {% placeholder "contact_intro" or %}
+        <div class="contact-header">
+            <h1>Get In Touch</h1>
+            <p>We'd love to hear from you! Whether you have a question about our activities, membership, or anything else, our team is ready to answer all your questions.</p>
+        </div>
+    {% endplaceholder %}
+
+    <div class="contact-grid">
+        <div class="contact-info">
+            <!-- CMS Tip: Use a Text plugin to edit your address, phone, and email. -->
+            {% placeholder "contact_details" or %}
+                <h2>Contact Information</h2>
+                <div class="info-item">
+                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="details">
+                        <h4>Address</h4>
+                        <p><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> Office Address: Flat 2212 22/F Site 1B, Tak Kei House, Tak Long Estate, Kai Tak Kowloon City, KLN.</p>
+
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="details">
+                        <h4>Office Phone</h4>
+                        <p><a href="tel:+85294403461">(852)94403461</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div class="details">
+                        <h4>Email</h4>
+                        <p><a href="mailto:admin@thegambianshk.org">admin@thegambianshk.org</a></p>
+                    </div>
+                </div>
+            {% endplaceholder %}
+        </div>
+
+        <div class="contact-form">
+            <!-- CMS Tip: Install a form plugin like 'djangocms-form-builder' and add it here. -->
+            {% placeholder "contact_form" or %}
+                <h2>Send us a Message</h2>
+                <div class="form-placeholder-message">
+                    <div class="container my-5">
+                        <h1></h1>
+                    
+                        {% if messages %}
+                          {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                              {{ message }}
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                    
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.name.label_tag }}
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.subject.label_tag }}
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="text-danger">{{ form.subject.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.message.label_tag }}
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="text-danger">{{ form.message.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <p><i class="bi bi-telephone-fill" aria-hidden="true"></i> The President: <a href="tel:+85255908595" style="color: green;">WhatsApp</a></p>
+                            <p>
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='mailto:info@thegambianshk.org';">Send Message</button>
+                            </p>
+                            
+                        </form>
+                    </div>
+                </div>
+            {% endplaceholder %}
+        </div>
+    </div>
+
+    <div class="map-section">
+        <!-- CMS Tip: Add a Google Map plugin here, or paste an embed code into a Text plugin. -->
+        {% placeholder "contact_map" or %}
+            <h2>Our Location</h2>
+            <div class="map-placeholder">
+                <!-- Example of an embedded map. Replace with your own from Google Maps. -->
+                <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.127192294899!2d114.16711631531936!3d22.318566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3404030e1c2c7b01%3A0x5e1b3c0c7c3f3f5!2sFlat%202212%2022%2FF%20Site%201B%2C%20Tak%20Kei%20House%2C%20Tak%20Long%20Estate%2C%20Kai%20Tak%20Kowloon%20City%2C%20KLN!5e0!3m2!1sen!2shk!4v1637862495420!5m2!1sen!2shk"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+            
+            </div>
+        {% endplaceholder %}
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+<!-- gambianshk_youths/templates/gambianshk_youths/mark_attendance.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Mark Attendance for {{ meeting.title }}</h2>
+<form method="post">
+    {% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Member</th>
+                <th>Attended</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member.first_name }} {{ member.last_name }}</td>
+                <td>
+                    <input type="checkbox" name="attendance_{{ member.id }}" {% if member.attended %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Submit Attendance</button>
+</form>
+{% endblock %}

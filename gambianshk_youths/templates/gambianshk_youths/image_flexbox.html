@@ -1,0 +1,14 @@
+{% load cms_tags static %}
+<div class="flex-container">
+    {% placeholder "image_gallery" %}
+</div>
+
+<div class="image-flexbox">
+    {% if image_flexbox.image %}
+        <img src="{{ image_flexbox.image.url }}" alt="{{ image_flexbox.title }}">
+    {% endif %}
+    {% if image_flexbox.description %}
+        <p>{{ image_flexbox.description }}</p>
+    {% endif %}
+</div>
+

@@ -1,0 +1,53 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Django migration cache
+*/migrations/__pycache__/
+
+# Environment variables
+.env
+*.env
+
+# SQLite database
+db.sqlite3
+db.sqlite3-journal
+
+# Static files
+staticfiles/
+static/
+media/
+
+# IDE or Editor specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Python virtual environment
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Log files
+*.log
+
+# Cache files
+*.cache
+
+# Local settings
+local_settings.py
+
+# Translation template files
+*.pot
+
+# Tox environment (if using)
+.tox/
+
+# Database Dumps - For PostgreSQL, MySQL, etc.
+*.sql
+*.dump
