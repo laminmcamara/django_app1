@@ -1,0 +1,236 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light background */
+    color: #333; /* Dark text color */
+}
+
+.header, .footer {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+}
+
+.main-nav {
+    background-color: #f8f9fa; /* Background color for the navbar */
+    padding: 0;                /* Remove default padding */
+}
+
+.nav-links {
+    list-style: none;          /* Remove bullet points */
+    padding: 0;                /* Remove padding */
+    margin: 0;                 /* Remove margin */
+    display: flex;            /* Use Flexbox for layout */
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: center;       /* Center items vertically */
+}
+
+.nav-links li {
+    margin: 0;                 /* Remove margin from list items */
+}
+
+.nav-links a {
+    display: inline-block;      /* Allows links to be inline */
+    padding: 10px 15px;        /* Space around the link */
+    color: black;              /* Link color */
+    text-decoration: none;      /* Remove underline */
+    line-height: 1;            /* Adjust line height */
+}
+
+.nav-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+    background-color: #f0f0f0; /* Optional: background color on hover */
+}
+
+/* Hero Section */
+.hero {
+    background-color: #e9ecef; /* Light grey background for hero */
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.hero__title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: white;
+    background-color: #003366;
+}
+
+.hero__description {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+.hero__image-container {
+    margin-top: 20px;
+}
+
+.bigflag {
+    max-width: 100%;
+    height: auto; /* Responsive image */
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    max-width: 80vw;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: whitesmoke; /* White background for content */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Profile Grid */
+.profile-grid {
+    display: grid;                        /* Enable Grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive columns */
+    gap: 15px;                           /* Space between grid items */
+    padding: 20px;                       /* Padding around the grid */
+}
+
+.profile-grid img {
+    width: 100%;                         /* Make images responsive */
+    height: auto;                        /* Maintain aspect ratio */
+    border-radius: 50%;                  /* Optional: make images circular */
+    object-fit: cover;                   /* Ensure image covers the area */
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 1.75rem;
+    margin-bottom: 15px;
+    color: white;
+    background-color: #003366;
+}
+
+/* About Section */
+.card--about {
+    background-color: #f1f1f1; /* Slightly darker background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Footer */
+.main-footer {
+    background-color: #b1cae5;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Remove background image from Latest Updates to Footer */
+.content-wrapper:nth-of-type(n+2) {
+    background-image: none; /* Ensure no background image is applied */
+    background-color: none; /* Set a solid background color */
+}
+
+/* Term Style */
+.term {
+    font-style: italic;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: royalblue;
+}
+
+/* Image Flexbox */
+.image-flexbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.image-flexbox img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.image-flexbox h3 {
+    color: #333;
+    margin: 10px 0;
+}
+
+.image-flexbox p {
+    color: #666;
+}
+
+/* FAQ Section */
+.faq {
+    background-color: darkseagreen; /* Background color */
+    padding: 20px; /* Padding around the content */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    margin: 20px 0; /* Margin to create space above and below */
+    font-family: Arial, sans-serif; /* Font style */
+    color: #333; /* Text color */
+}
+
+/* Brand Styles */
+.brand {
+    display: flex; /* Aligns items horizontally */
+    align-items: center; /* Centers items vertically */
+    text-decoration: none; /* Removes underline from links */
+    color: #333; /* Text color */
+    padding: 10px; /* Adding some padding */
+}
+
+.brand img {
+    max-width: 20px; /* Adjust size of the image */
+    margin-right: 10px; /* Space between image and text */
+}
+
+/* Establishment Badge */
+.establishment {
+    background-color: rgba(255, 255, 0, 0.7); /* Semi-transparent yellow */
+    color: black; /* Text color */
+    font-style: italic; /* Italic style */
+    padding: 2px 5px; /* Add padding */
+    border-radius: 3px; /* Rounded corners */
+    margin-left: 5px; /* Space between text and badge */
+}
+
+/* Styles for the news container */
+.news-container {
+    padding: 20px;
+    background-color: #ffffff; /* White background for content */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.news-title {
+    font-size: 1.5em; /* Larger title font */
+    margin-bottom: 10px;
+}
+
+.news-intro {
+    margin-bottom: 15px; /* Space below intro paragraph */
+    color: #555; /* Slightly lighter text color */
+}
+
+/* Styles for the news sources list */
+.news-sources {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+.news-sources li {
+    margin-bottom: 8px; /* Space between list items */
+}
+
+.news-sources a {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Bootstrap primary color */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.news-sources a:hover {
+    color: #0056b3; /* Darker shade on hover */
+}
+

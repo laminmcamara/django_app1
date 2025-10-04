@@ -2,9 +2,10 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from django.utils.translation import gettext_lazy as _
+import secrets
 
 from django.core.cache import cache
-cache.clear()
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -14,10 +15,34 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY SETTINGS
 # IMPORTANT: Replace the default SECRET_KEY in production with a secure, unique value.
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', '')
+# DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ['true', '1', 'yes']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
+
+
+# Get DEBUG status from an environment variable.
+DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ['true', '1', 'yes']
+
+# SECURITY SETTINGS - These are for production only.
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True  # Enable HTTPS redirection in production
+    # All other SECURE settings go here
+else:
+    # Optional: Set development-friendly values for security settings
+    SECURE_SSL_REDIRECT = False
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+
+CMS_DEBUG = DEBUG
+
+
+# SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', secrets.token_urlsafe(50))  # Use a secure key
+
 
 # DEBUG should be False in production for security!
-DEBUG = os.getenv('DJANGO_DEBUG', 'True').lower() in ['true', '1', 'yes']
+# import os
+
 
 # Set your allowed hosts in production to your domain names or IPs.
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '127.0.0.1,localhost,thegambianshk.org,www.thegambianshk.org').split(',')
@@ -32,8 +57,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'djangocms_text',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
     'django_ckeditor_5', # The modern CKEditor 5 package
 
     # Third-party apps
@@ -95,7 +118,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+# X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'DENY'
+
+
+# DEPLOYMENT
+# SECURE_HSTS_SECONDS = 31536000  # 1 year
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Optional
+# SECURE_HSTS_PRELOAD = True  # Optional
+
+
 
 # CMS Languages Configuration
 CMS_LANGUAGES = {
@@ -197,7 +229,6 @@ CMS_APPHOOKS = (
     'gambianshk_youths.cms_apphook.GambianshkYouthsApphook',
 )
 
-CMS_DEBUG = True  # Enable debugging for CMS
 
 
 # URL Configuration
@@ -280,16 +311,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Path for CKEditor uploads
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
-# SECURITY SETTINGS - Enable these only when DEBUG=False (production)
-if not DEBUG:
-    CSRF_COOKIE_SECURE = True  # Use HTTPS for cookies
-    SESSION_COOKIE_SECURE = True
-    SECURE_BROWSER_XSS_FILTER = True
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_SECONDS = 3600  # Adjust higher for longer HSTS duration
-    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-    SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+
+
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
